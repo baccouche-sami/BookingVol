@@ -11,6 +11,7 @@ class Reservation(models.Model):
 
   vol = models.ForeignKey(Vol, on_delete = models.CASCADE)
   user = models.ForeignKey(User, on_delete = models.CASCADE)
+  retour_inclut = models.BooleanField(default=False)
   date = models.DateTimeField(default=timezone.now)
 
   

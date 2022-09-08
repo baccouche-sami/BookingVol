@@ -23,4 +23,4 @@ class ReservationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Reservation
-        fields = ('id', 'url', 'vol', 'user', 'date')
+        fields = ('id', 'url', 'vol', 'user', 'retour_inclut', 'date')

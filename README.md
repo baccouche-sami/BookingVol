@@ -25,7 +25,8 @@
 "reservations": "http://localhost:8000/booking/reservations/"
 {
     "vol": null,
-    "user": null
+    "user": null,
+    "retour_inclut": false,
 }
   
   ```

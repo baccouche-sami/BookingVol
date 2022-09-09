@@ -1,13 +1,13 @@
 <template lang="">
         <div class="bg-white shadow sm:rounded-lg">
           <div class="px-4 py-5 sm:p-6">
-            <h3 class="text-lg font-medium leading-6 text-gray-900">Vol n° 10</h3>
-            <h5 class="text-md font-medium leading-6 text-gray-900">100 $</h5>
+            <h3 class="text-lg font-medium leading-6 text-gray-900">Vol #BV{{fly.id}}</h3>
+            <h5 class="text-md font-medium leading-6 text-gray-900">{{fly.montant}} $</h5>
 
             <div class="mt-2 sm:flex sm:items-start sm:justify-between">
               <div class="max-w-xl text-sm text-gray-500">
-                <p>Départ : Paris</p>
-                <p>Destination: NYC</p>
+                <p>Départ : {{fly.depart}}</p>
+                <p>Destination: {{fly.arrive}}</p>
               </div>
               <div class="mt-5 sm:mt-0 sm:ml-6 sm:flex sm:flex-shrink-0 sm:items-center">
                 <button type="button" @click="openModal" class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:text-sm">Book</button>
@@ -42,7 +42,7 @@
             leave-to="opacity-0 scale-95"
           >
             <DialogPanel
-              class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+              class="w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
             >
               <DialogTitle
                 as="h3"
@@ -60,10 +60,9 @@
                   <div class="mt-1">
                     <input
                       type="text"
-                      name="email"
-                      id="email"
                       class="block w-full px-3 py-2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                       placeholder="Nom.."
+                      v-model="nom"
                     />
                   </div>
                 </div>
@@ -125,6 +124,23 @@
                     />
                   </Switch>
                 </div>
+                <div class="pt-5">
+                  <label
+                    for="email"
+                    class="block text-sm font-medium text-gray-700"
+                    >Date Départ</label
+                  >
+                  <div class="mt-1">
+                    <input
+                      type="date"
+                      name="email"
+                      id="email"
+                      class="block w-full rounded-md px-3 py-2 border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                      placeholder=""
+                    />
+                  </div>
+                </div>
+                
               </div>
 
               <div class="mt-4">
@@ -153,6 +169,7 @@
         </div>
 </template>
 <script>
+
 import {
   TransitionChild,
   TransitionRoot,
@@ -179,7 +196,10 @@ export default {
     data() {
         return {
             enabled: false,
-            isOpen: false
+            isOpen: false,
+            nom:"",
+            prenom:"",
+            
         }
     },
     methods: {

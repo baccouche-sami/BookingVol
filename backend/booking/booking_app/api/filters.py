@@ -19,7 +19,7 @@ class VolFilter(FilterSet):
     
     class Meta:
         model= Vol
-        fields = ['id', 'depart', 'arrive', 'montant', 'places']
+        fields = ['id', 'code', 'depart', 'arrive', 'montant', 'places']
 
 class ReservationFilter(FilterSet):
     

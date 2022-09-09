@@ -12,6 +12,7 @@ class Vol(models.Model):
             ('DTW', ('DTW'))
       )
 
+      code = models.CharField(max_length=255, null = True)
       depart = models.CharField(max_length=255, null = False, choices=STATUTS)
       arrive = models.CharField(max_length=255, null = False, choices=STATUTS)
       montant = models.IntegerField()

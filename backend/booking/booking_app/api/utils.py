@@ -1,7 +1,7 @@
 from django.db.models import Q
 
 def str_to_bool(value) :
-  return value.lower() == 'true'
+  return str(value).lower() == 'true'
 
 def custom_query(params):
   query = Q()

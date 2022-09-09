@@ -4,7 +4,8 @@ import axios from "axios";
 export default createStore({
   state: {
     vols: [],
-    bookings: []
+    bookings: [],
+    currency: "EUR"
   },
   getters: {
     getVols: (state) => state.vols,

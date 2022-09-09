@@ -19,6 +19,8 @@
                   <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Vol</th>
                   <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">User</th>
                   <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Aller/Retour</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Option champagne</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Montant</th>
                   <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Date</th>
 
                   <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
@@ -32,6 +34,8 @@
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ book.vol }}</td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ book.user }}</td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ book.retour_inclut }}</td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ book.champagne }}</td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ book.montant }}</td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ book.date }}</td>
                   <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                     <a href="#" class="text-blue-600 hover:text-blue-900"

@@ -1,15 +1,19 @@
 <template>
-  <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+
+
+  <div class="flex min-h-full">
+    <div class="flex flex-1 flex-col justify-center py-6 px-4 sm:px-6 lg:px-10 xl:px-10">
+      <div class="flex min-h-full flex-col justify-center  sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
-      <img class="mx-auto h-28 w-auto" src="/logo.png" alt="Booking Vol" />
+      <img class="mx-auto h-auto w-max" src="/logo.png" alt="Booking Vol" />
       <h2
-        class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900"
+        class="text-center text-3xl font-bold tracking-tight text-gray-900"
       >
         Booking Vol
       </h2>
     </div>
 
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-3xl">
+    <div class="mt-6 sm:mx-auto sm:w-full sm:max-w-3xl">
       <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
         <form class="space-y-6" action="#" method="POST">
           <Combobox as="div" v-model="selectedDepart">
@@ -177,6 +181,14 @@
       </div>
     </div>
   </div>
+    </div>
+    <div class="relative hidden w-0 flex-1 lg:block">
+      <img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1519666336592-e225a99dcd2f?&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80" alt="" />
+    </div>
+  </div>
+
+
+  
 </template>
 <script>
 import {

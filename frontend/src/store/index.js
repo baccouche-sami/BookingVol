@@ -1,6 +1,10 @@
 import { createStore } from 'vuex'
 import axios from "axios"
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+
+
 export default createStore({
+    
     state: {
         vols: []
     },
@@ -11,7 +15,7 @@ export default createStore({
     actions: {
         async fetchVols({ commit }) {
             try {
-              const data = await axios.get('https://localhost:8000/booking/vols')
+              const data = await axios.get('http://127.0.0.1:8000/booking/vols/')
                 commit('SET_VOLS', data.data)
               }
               catch (error) {

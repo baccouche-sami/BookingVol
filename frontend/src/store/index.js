@@ -4,9 +4,12 @@ import axios from "axios";
 export default createStore({
   state: {
     vols: [],
+    bookings: []
   },
   getters: {
     getVols: (state) => state.vols,
+    getBookings: (state) => state.bookings,
+
   },
   actions: {
     async fetchVols({ commit }) {
@@ -20,6 +23,17 @@ export default createStore({
         console.log(error);
       }
     },
+    async fetchBookings({ commit }) {
+        try {
+          const data = await axios.get("http://127.0.0.1:8000/booking/reservations/");
+          commit("SET_BOOKINGS", data.data);
+  
+          return data.data;
+        } catch (error) {
+          //alert(error)
+          console.log(error);
+        }
+      },
     ajoutReservation({ commit }, myReservation) {
       axios
         .post("http://127.0.0.1:8000/booking/reservations/", myReservation)
@@ -36,5 +50,8 @@ export default createStore({
     SET_VOLS(state, vols) {
       state.vols = vols;
     },
+    SET_BOOKINGS(state, bookings) {
+        state.bookings = bookings;
+      },
   },
 });

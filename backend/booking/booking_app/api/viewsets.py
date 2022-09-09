@@ -46,7 +46,7 @@ class ReservationViewSet(ModelViewSet):
         request.data["champagne"] = str_to_bool(request.data.get('champagne'))
         request.data["retour_inclut"] = str_to_bool(request.data.get('retour_inclut'))
 
-        montant_vol = Reservation.objects.get(pk=request.data.get('vol')).montant * request.data.get('nb_place')
+        montant_vol = Reservation.objects.get(pk=request.data.get('vol')).montant * int(request.data.get('nb_place'))
         print(montant_vol)
         if request.data.get('champagne') : montant_vol += 100
         print(montant_vol)
@@ -56,7 +56,6 @@ class ReservationViewSet(ModelViewSet):
         request.data["montant"] = montant_vol
         request.data.pop('csrfmiddlewaretoken')
         request.data["vol_id"] = int(request.data.pop('vol')[0])
-        request.data["user_id"] = int(request.data.pop('user')[0])
 
         Reservation(**request.data.dict()).save()
 

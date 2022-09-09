@@ -63,7 +63,7 @@
                   Réservation
                 </DialogTitle>
                 <div class="mt-2">
-                  <label>Vol: {{ fly.depart }} -> {{ fly.arrive }}</label>
+                  <label>Vol: {{ fly.depart }} -> {{ fly.arrive }}</label> ====> {{total}}
                   <div class="pt-5">
                     <label
                       for="email"
@@ -154,7 +154,7 @@
                     <label
                       for="email"
                       class="block text-sm font-medium text-gray-700 pb-2"
-                      >Option Champagne</label
+                      >Option Champagne (+100$)</label
                     >
 
                     <Switch
@@ -193,6 +193,23 @@
                         class="block w-full rounded-md px-3 py-2 border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                         placeholder=""
                         v-model="myReservation.date_depart"
+                      />
+                    </div>
+                  </div>
+                  <div class="pt-5" v-if="myReservation.retour_inclut">
+                    <label
+                      for="email"
+                      class="block text-sm font-medium text-gray-700"
+                      >Date Retour</label
+                    >
+                    <div class="mt-1">
+                      <input
+                        type="date"
+                        name="email"
+                        id="email"
+                        class="block w-full rounded-md px-3 py-2 border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                        placeholder=""
+                        v-model="myReservation.date_retour"
                       />
                     </div>
                   </div>
@@ -251,16 +268,15 @@ export default {
     return {
       enabled: false,
       op: false,
-
+      //total:null,
       isOpen: false,
-      nom: "",
-      prenom: "",
       myReservation: {
         nom: "",
         prenom: "",
         nbrPlace: 1,
         retour_inclut: false,
         date_depart: "",
+        date_retour: "",
         optionChampagne: false,
       },
     };
@@ -273,9 +289,22 @@ export default {
       this.isOpen = true;
     },
     ajouterUneReservation() {
-     
+        console.log(this.myReservation);
       this.$store.dispatch("ajoutReservation", this.myReservation);
     },
+  },
+  computed: {
+    total() {
+        let res = this.myReservation.nbrPlace * this.fly.montant 
+        this.myReservation.optionChampagne ? res+=100 : null;
+        this.myReservation.retour_inclut ? res*=2 :null;
+        return res
+    }
+  },
+  watch: {
+    total(newValue, oldValue) {
+        
+    }
   },
 };
 </script>

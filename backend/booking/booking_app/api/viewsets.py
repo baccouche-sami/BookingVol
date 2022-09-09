@@ -41,23 +41,18 @@ class ReservationViewSet(ModelViewSet):
             return self.queryset.filter(custom_query(self.request.query_params.dict()))
 
     def create(self, request):
-        request.data._mutable=True
-
-        request.data["champagne"] = str_to_bool(request.data.get('champagne'))
-        request.data["retour_inclut"] = str_to_bool(request.data.get('retour_inclut'))
+        
+        champagne = str_to_bool(request.data.get('champagne'))
+        retour_inclut = str_to_bool(request.data.get('retour_inclut'))
 
         montant_vol = Reservation.objects.get(pk=request.data.get('vol')).montant * int(request.data.get('nb_place'))
         print(montant_vol)
-        if request.data.get('champagne') : montant_vol += 100
+        if champagne : montant_vol += 100
         print(montant_vol)
-        if request.data.get('retour_inclut') : montant_vol *= 1.95
+        if retour_inclut : montant_vol *= 1.95
 
-        print(montant_vol)
-        request.data["montant"] = montant_vol
-        request.data.pop('csrfmiddlewaretoken')
-        request.data["vol_id"] = int(request.data.pop('vol')[0])
-
-        Reservation(**request.data.dict()).save()
+        serializer = ReservationSerializer(data=request.data)
+        if serializer.is_valid() : serializer.save(montant=montant_vol, vol_id = int(request.data.get('vol')), champagne = champagne, retour_inclut = retour_inclut)
 
         return Response(request.data, status=status.HTTP_201_CREATED)
         

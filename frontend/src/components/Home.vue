@@ -18,35 +18,12 @@
             >
             <div class="relative mt-1">
               <ComboboxInput
-                class="
-                  w-full
-                  rounded-md
-                  border border-gray-300
-                  bg-white
-                  py-2
-                  pl-3
-                  pr-10
-                  shadow-sm
-                  focus:border-blue-500
-                  focus:outline-none
-                  focus:ring-1
-                  focus:ring-blue-500
-                  sm:text-sm
-                "
+                class="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
                 @change="queryDepart = $event.target.value"
                 :display-value="(place) => place"
               />
               <ComboboxButton
-                class="
-                  absolute
-                  inset-y-0
-                  right-0
-                  flex
-                  items-center
-                  rounded-r-md
-                  px-2
-                  focus:outline-none
-                "
+                class="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none"
               >
                 <ChevronUpDownIcon
                   class="h-5 w-5 text-gray-400"
@@ -56,25 +33,10 @@
 
               <ComboboxOptions
                 v-if="filtedDepart.length > 0"
-                class="
-                  absolute
-                  z-10
-                  mt-1
-                  max-h-60
-                  w-full
-                  overflow-auto
-                  rounded-md
-                  bg-white
-                  py-1
-                  text-base
-                  shadow-lg
-                  ring-1 ring-black ring-opacity-5
-                  focus:outline-none
-                  sm:text-sm
-                "
+                class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
               >
                 <ComboboxOption
-                  v-for="(place,index) in filtedDepart"
+                  v-for="(place, index) in filtedDepart"
                   :key="index"
                   :value="place"
                   as="template"
@@ -113,35 +75,12 @@
             >
             <div class="relative mt-1">
               <ComboboxInput
-                class="
-                  w-full
-                  rounded-md
-                  border border-gray-300
-                  bg-white
-                  py-2
-                  pl-3
-                  pr-10
-                  shadow-sm
-                  focus:border-blue-500
-                  focus:outline-none
-                  focus:ring-1
-                  focus:ring-blue-500
-                  sm:text-sm
-                "
+                class="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
                 @change="queryDestination = $event.target.value"
                 :display-value="(place) => place"
               />
               <ComboboxButton
-                class="
-                  absolute
-                  inset-y-0
-                  right-0
-                  flex
-                  items-center
-                  rounded-r-md
-                  px-2
-                  focus:outline-none
-                "
+                class="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none"
               >
                 <ChevronUpDownIcon
                   class="h-5 w-5 text-gray-400"
@@ -151,25 +90,10 @@
 
               <ComboboxOptions
                 v-if="filtedDestination.length > 0"
-                class="
-                  absolute
-                  z-10
-                  mt-1
-                  max-h-60
-                  w-full
-                  overflow-auto
-                  rounded-md
-                  bg-white
-                  py-1
-                  text-base
-                  shadow-lg
-                  ring-1 ring-black ring-opacity-5
-                  focus:outline-none
-                  sm:text-sm
-                "
+                class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
               >
                 <ComboboxOption
-                  v-for="(place,index) in filtedDestination"
+                  v-for="(place, index) in filtedDestination"
                   :key="index"
                   :value="place"
                   as="template"
@@ -213,19 +137,7 @@
                 id="password"
                 type="number"
                 v-model="nbPlaces"
-                class="
-                  block
-                  w-full
-                  appearance-none
-                  rounded-md
-                  border border-gray-300
-                  px-3
-                  py-2
-                  placeholder-gray-400
-                  shadow-sm
-                  focus:border-blue-500 focus:outline-none focus:ring-blue-500
-                  sm:text-sm
-                "
+                class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
               />
             </div>
           </div>
@@ -346,6 +258,13 @@ export default {
       nbPlaces: 1,
       places: [],
       destination: [],
+      myReservation: {
+        id: 8,
+        vol: 3,
+        user: 1,
+        retour_inclut: true,
+        date: "2022-09-08T20:05:00Z",
+      },
     };
   },
 
@@ -384,6 +303,8 @@ export default {
     })
     this.places = [...new Set(this.places)]
 
+    //appeler la methode addReservation pour enregistre une nouvelle reservation
+    this.$store.dispatch("ajoutReservation", this.myReservation);
   },
   computed: {
     ...mapState(['vols']),
@@ -391,9 +312,7 @@ export default {
       return this.queryDepart === ""
         ? this.places
         : this.places.filter((place) => {
-            return place
-              .toLowerCase()
-              .includes(this.queryDepart.toLowerCase());
+            return place.toLowerCase().includes(this.queryDepart.toLowerCase());
           });
     },
     filtedDestination() {
@@ -405,9 +324,7 @@ export default {
               .includes(this.queryDestination.toLowerCase());
           });
     },
-    
   },
 };
 </script>
-<style lang="">
-</style>
+<style lang=""></style>

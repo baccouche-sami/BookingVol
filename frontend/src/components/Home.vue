@@ -142,66 +142,37 @@
             </div>
           </div>
 
-          <div class="flex justify-between	">
+          <div class="flex justify-between">
             <button
               type="button"
               @click="searchVol()"
-              :class="!this.selectedDepart || !this.selectedDestination ? 'opacity-25 cursor-not-allowed' : null"
-              :disabled="!this.selectedDepart || !this.selectedDestination"
-              class="
-                flex
-                w-full
-                justify-center
-                rounded-md
-                border border-transparent
-                bg-blue-500
-                py-2
-                px-4
-                text-sm
-                font-medium
-                text-white
-                shadow-sm
-                hover:bg-blue-700
-                focus:outline-none
-                focus:ring-2
-                focus:ring-blue-500
-                focus:ring-offset-2
-                mr-3
+              :class="
+                !this.selectedDepart || !this.selectedDestination
+                  ? 'opacity-25 cursor-not-allowed'
+                  : null
               "
+              :disabled="!this.selectedDepart || !this.selectedDestination"
+              class="flex w-full justify-center rounded-md border border-transparent bg-blue-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mr-3"
             >
               Chercher
             </button>
             <button
               type="button"
-              :class="!this.selectedDepart || !this.selectedDestination ? 'opacity-25 cursor-not-allowed' : null"
+              :class="
+                !this.selectedDepart || !this.selectedDestination
+                  ? 'opacity-25 cursor-not-allowed'
+                  : null
+              "
               :disabled="!this.selectedDepart || !this.selectedDestination"
               @click="resetSearch()"
-              class="
-                flex
-                w-full
-                justify-center
-                rounded-md
-                border border-transparent
-                bg-blue-500
-                py-2
-                px-4
-                text-sm
-                font-medium
-                text-white
-                shadow-sm
-                hover:bg-blue-700
-                focus:outline-none
-                focus:ring-2
-                focus:ring-blue-500
-                focus:ring-offset-2
-              "
+              class="flex w-full justify-center rounded-md border border-transparent bg-blue-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
               Reset
             </button>
           </div>
         </form>
       </div>
-      <div class="pt-5" v-for="item in vols"  :key="item.id">
+      <div class="pt-5" v-for="item in vols" :key="item.id">
         <VolItem :fly="item" />
       </div>
     </div>
@@ -225,8 +196,7 @@ import {
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/vue/20/solid";
 import VolItem from "./VolItem.vue";
 import axios from "axios";
-import { mapGetters,mapState } from "vuex";
-
+import { mapGetters, mapState } from "vuex";
 
 export default {
   name: "HomeComponent",
@@ -260,13 +230,7 @@ export default {
       placesDestination: [],
 
       destination: [],
-      myReservation: {
-        id: 8,
-        vol: 3,
-        user: 1,
-        retour_inclut: true,
-        date: "2022-09-08T20:05:00Z",
-      },
+      
     };
   },
 
@@ -277,50 +241,46 @@ export default {
     openModal() {
       this.isOpen = true;
     },
-    searchVol(){
-
-      const res = this.vols.filter(vol => {
-        return vol.depart == this.selectedDepart && vol.arrive == this.selectedDestination && vol.places >= this.nbPlaces
-      }
-
-      )
-      this.$store.commit('SET_VOLS', res)
+    searchVol() {
+      const res = this.vols.filter((vol) => {
+        return (
+          vol.depart == this.selectedDepart &&
+          vol.arrive == this.selectedDestination &&
+          vol.places >= this.nbPlaces
+        );
+      });
+      this.$store.commit("SET_VOLS", res);
 
       console.log(res);
       //console.log(this.selectedDepart);
       //console.log(this.selectedDestination);
       //console.log(this.nbPlaces);
     },
-    async resetSearch(){
-      this.selectedDepart=null
-      this.selectedDestination=null
+    async resetSearch() {
+      this.selectedDepart = null;
+      this.selectedDestination = null;
       this.$store.dispatch("fetchVols");
-    }
+    },
   },
   async created() {
     const res = await this.$store.dispatch("fetchVols");
-    
-    res.map(place => {
-      this.placesDepart.push(place.depart)
-      this.placesDestination.push(place.arrive)
 
-    })
-    this.placesDepart = [...new Set(this.placesDepart)]
-    this.placesDestination = [...new Set(this.placesDestination)]
-
+    res.map((place) => {
+      this.placesDepart.push(place.depart);
+      this.placesDestination.push(place.arrive);
+    });
+    this.placesDepart = [...new Set(this.placesDepart)];
+    this.placesDestination = [...new Set(this.placesDestination)];
 
     //appeler la methode addReservation pour enregistre une nouvelle reservation
-    this.$store.dispatch("ajoutReservation", this.myReservation);
   },
   computed: {
-    ...mapState(['vols']),
+    ...mapState(["vols"]),
     filtedDepart() {
       return this.queryDepart === ""
         ? this.placesDepart
         : this.placesDepart.filter((place) => {
-            return place
-              .toLowerCase()
-              .includes(this.queryDepart.toLowerCase());
+            return place.toLowerCase().includes(this.queryDepart.toLowerCase());
           });
     },
     filtedDestination() {

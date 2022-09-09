@@ -9,8 +9,10 @@
   "dependencies": {
     "@headlessui/vue": "^1.7.0",
     "@heroicons/vue": "^2.0.10",
+    "axios": "^0.27.2",
     "vue": "^3.2.38",
-    "vue-router": "^4.1.5"
+    "vue-router": "^4.1.5",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.3",

@@ -230,10 +230,40 @@
             </div>
           </div>
 
-          <div>
+          <div class="flex justify-between	">
             <button
               type="button"
               @click="searchVol()"
+              :class="!this.selectedDepart || !this.selectedDestination ? 'opacity-25 cursor-not-allowed' : null"
+              :disabled="!this.selectedDepart || !this.selectedDestination"
+              class="
+                flex
+                w-full
+                justify-center
+                rounded-md
+                border border-transparent
+                bg-blue-500
+                py-2
+                px-4
+                text-sm
+                font-medium
+                text-white
+                shadow-sm
+                hover:bg-blue-700
+                focus:outline-none
+                focus:ring-2
+                focus:ring-blue-500
+                focus:ring-offset-2
+                mr-3
+              "
+            >
+              Chercher
+            </button>
+            <button
+              type="button"
+              :class="!this.selectedDepart || !this.selectedDestination ? 'opacity-25 cursor-not-allowed' : null"
+              :disabled="!this.selectedDepart || !this.selectedDestination"
+              @click="resetSearch()"
               class="
                 flex
                 w-full
@@ -254,12 +284,12 @@
                 focus:ring-offset-2
               "
             >
-              Chercher
+              Reset
             </button>
           </div>
         </form>
       </div>
-      <div class="pt-5" v-for="item in volss"  :key="item.id">
+      <div class="pt-5" v-for="item in vols"  :key="item.id">
         <VolItem :fly="item" />
       </div>
     </div>
@@ -283,7 +313,8 @@ import {
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/vue/20/solid";
 import VolItem from "./VolItem.vue";
 import axios from "axios";
-import { mapGetters } from "vuex";
+import { mapGetters,mapState } from "vuex";
+
 
 export default {
   name: "HomeComponent",
@@ -313,7 +344,6 @@ export default {
       selectedDepart: null,
       selectedDestination: null,
       nbPlaces: 1,
-      volss: [],
       places: [],
       destination: [],
     };
@@ -327,24 +357,36 @@ export default {
       this.isOpen = true;
     },
     searchVol(){
-      console.log(this.selectedDepart);
-      console.log(this.selectedDestination);
-      console.log(this.nbPlaces);
 
+      const res = this.vols.filter(vol => {
+        return vol.depart == this.selectedDepart && vol.arrive == this.selectedDestination && vol.places >= this.nbPlaces
+      }
+
+      )
+      this.$store.commit('SET_VOLS', res)
+
+      console.log(res);
+      //console.log(this.selectedDepart);
+      //console.log(this.selectedDestination);
+      //console.log(this.nbPlaces);
+    },
+    async resetSearch(){
+      this.selectedDepart=null
+      this.selectedDestination=null
+      this.$store.dispatch("fetchVols");
     }
   },
   async created() {
-    this.volss = await this.$store.dispatch("fetchVols");
-    this.volss.map(place => {
+    const res = await this.$store.dispatch("fetchVols");
+    
+    res.map(place => {
       this.places.push(place.depart)
     })
     this.places = [...new Set(this.places)]
 
   },
   computed: {
-    ...mapGetters({
-      vols: "getVols",
-    }),
+    ...mapState(['vols']),
     filtedDepart() {
       return this.queryDepart === ""
         ? this.places

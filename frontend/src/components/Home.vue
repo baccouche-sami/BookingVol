@@ -256,7 +256,9 @@ export default {
       selectedDepart: null,
       selectedDestination: null,
       nbPlaces: 1,
-      places: [],
+      placesDepart: [],
+      placesDestination: [],
+
       destination: [],
       myReservation: {
         id: 8,
@@ -299,9 +301,13 @@ export default {
     const res = await this.$store.dispatch("fetchVols");
     
     res.map(place => {
-      this.places.push(place.depart)
+      this.placesDepart.push(place.depart)
+      this.placesDestination.push(place.arrive)
+
     })
-    this.places = [...new Set(this.places)]
+    this.placesDepart = [...new Set(this.placesDepart)]
+    this.placesDestination = [...new Set(this.placesDestination)]
+
 
     //appeler la methode addReservation pour enregistre une nouvelle reservation
     this.$store.dispatch("ajoutReservation", this.myReservation);
@@ -310,15 +316,17 @@ export default {
     ...mapState(['vols']),
     filtedDepart() {
       return this.queryDepart === ""
-        ? this.places
-        : this.places.filter((place) => {
-            return place.toLowerCase().includes(this.queryDepart.toLowerCase());
+        ? this.placesDepart
+        : this.placesDepart.filter((place) => {
+            return place
+              .toLowerCase()
+              .includes(this.queryDepart.toLowerCase());
           });
     },
     filtedDestination() {
       return this.queryDestination === ""
-        ? this.places
-        : this.places.filter((place) => {
+        ? this.placesDestination
+        : this.placesDestination.filter((place) => {
             return place
               .toLowerCase()
               .includes(this.queryDestination.toLowerCase());

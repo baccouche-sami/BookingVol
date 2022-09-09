@@ -64,7 +64,7 @@
           <div>
             <label for="password" class="block text-sm font-medium text-gray-700">Nombre de places</label>
             <div class="mt-1">
-              <input id="password" name="date" type="text" autocomplete="current-password" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm" />
+              <input id="password" name="date" type="number" autocomplete="current-password" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm" />
             </div>
           </div>
 
@@ -76,7 +76,13 @@
         </form>
 
       </div>
+      <div class="pt-5">
+        <VolItem />
+        
     </div>
+    </div>
+    
+    
   </div>
 </template>
 <script>
@@ -87,8 +93,17 @@ import {
   ComboboxLabel,
   ComboboxOption,
   ComboboxOptions,
+  TransitionChild,
+    TransitionRoot,
+
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+  Switch
 } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
+import  VolItem  from "./VolItem.vue";
+import axios from 'axios'
 
 export default {
     name:"HomeComponent",
@@ -98,13 +113,21 @@ export default {
         ComboboxInput,
         ComboboxLabel,
         ComboboxOption,
-        ComboboxOptions,CheckIcon, ChevronUpDownIcon 
+        ComboboxOptions,CheckIcon, ChevronUpDownIcon ,
+        TransitionRoot,
+        TransitionChild,
+        Dialog,
+        DialogPanel,
+        DialogTitle,
+        Switch,
+        VolItem
     },
     data() {
         return {
             queryDepart: '',
             queryDestination: '',
-
+            enabled: false,
+            isOpen:false,
             selectedDepart:null,
             selectedDestination:null,
             places : [
@@ -114,7 +137,23 @@ export default {
                 { id: 4, name: 'TN' },
 
                      // More users...
-            ]
+            ],
+            vols:[]
+        }
+    },
+    mounted () {
+      this.$store.dispatch('fetchVols');
+    },
+    created () {
+      this.vols = this.$store.state.vols;
+      console.log("🚀 ~ file: Home.vue ~ line 149 ~ created ~ this.vols", this.vols)
+    },
+    methods: {
+      closeModal() {
+          this.isOpen = false
+      },
+      openModal() {
+          this.isOpen = true
         }
     },
     computed: {

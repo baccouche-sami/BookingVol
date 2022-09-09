@@ -249,6 +249,8 @@ import {
   DialogTitle,
   Switch,
 } from "@headlessui/vue";
+  import { useToast } from "vue-toastification";
+
 export default {
   components: {
     TransitionRoot,
@@ -290,7 +292,11 @@ export default {
     },
     ajouterUneReservation() {
         console.log(this.myReservation);
-      this.$store.dispatch("ajoutReservation", this.myReservation);
+        this.isOpen = false;
+        const toast = useToast();
+        toast.success("Merci ! Votre réservation a été enregistrée avec succès.");
+
+      //this.$store.dispatch("ajoutReservation", this.myReservation);
     },
   },
   computed: {
@@ -300,12 +306,7 @@ export default {
         this.myReservation.retour_inclut ? res*=2 :null;
         return res
     }
-  },
-  watch: {
-    total(newValue, oldValue) {
-        
-    }
-  },
+  }
 };
 </script>
 <style lang=""></style>

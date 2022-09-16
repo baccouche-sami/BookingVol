@@ -111,7 +111,7 @@
                         id="email"
                         class="block w-full rounded-md px-3 py-2 border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                         placeholder=""
-                        v-model="myReservation.nbrPlace"
+                        v-model="myReservation.nb_place"
                       />
                     </div>
                   </div>
@@ -158,9 +158,9 @@
                     >
 
                     <Switch
-                      v-model="myReservation.optionChampagne"
+                      v-model="myReservation.champagne"
                       :class="[
-                        myReservation.optionChampagne
+                        myReservation.champagne
                           ? 'bg-blue-600'
                           : 'bg-gray-200',
                         'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
@@ -170,7 +170,7 @@
                       <span
                         aria-hidden="true"
                         :class="[
-                          myReservation.optionChampagne
+                          myReservation.champagne
                             ? 'translate-x-5'
                             : 'translate-x-0',
                           'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
@@ -188,8 +188,7 @@
                     <div class="mt-1">
                       <input
                         type="date"
-                        name="email"
-                        id="email"
+                        
                         class="block w-full rounded-md px-3 py-2 border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                         placeholder=""
                         v-model="myReservation.date_depart"
@@ -205,8 +204,7 @@
                     <div class="mt-1">
                       <input
                         type="date"
-                        name="email"
-                        id="email"
+                        
                         class="block w-full rounded-md px-3 py-2 border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                         placeholder=""
                         v-model="myReservation.date_retour"
@@ -241,6 +239,8 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
+
 import {
   TransitionChild,
   TransitionRoot,
@@ -275,11 +275,14 @@ export default {
       myReservation: {
         nom: "",
         prenom: "",
-        nbrPlace: 1,
+        nb_place: 1,
+        vol:this.fly.id ? this.fly.id : this.fly.code,
         retour_inclut: false,
         date_depart: "",
         date_retour: "",
-        optionChampagne: false,
+        first_class: false,
+        champagne: false,
+        currency:this.currency
       },
     };
   },
@@ -294,15 +297,24 @@ export default {
         console.log(this.myReservation);
         this.isOpen = false;
         const toast = useToast();
-        toast.success("Merci ! Votre réservation a été enregistrée avec succès.");
 
-      //this.$store.dispatch("ajoutReservation", this.myReservation);
+        const res = this.$store.dispatch("ajoutReservation", this.myReservation);
+        if (res) {
+          toast.success("Merci ! Votre réservation a été enregistrée avec succès.");
+        }
+        else {
+          toast.error("Error"+ res);
+
+        }
+
     },
   },
   computed: {
+    ...mapState(["currency"]),
+
     total() {
-        let res = this.myReservation.nbrPlace * this.fly.montant 
-        this.myReservation.optionChampagne ? res+=100 : null;
+        let res = this.myReservation.nb_place * this.fly.montant 
+        this.myReservation.champagne ? res+=100 : null;
         this.myReservation.retour_inclut ? res*=2 :null;
         return res
     }

@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Bookings from '../views/Bookings.vue'
+import PageFindVol from '../views/PageFindVol.vue'
+
 
 
 const router = createRouter({
@@ -15,6 +17,11 @@ const router = createRouter({
       path: '/bookings',
       name: 'bookings',
       component: Bookings
+    },
+    {
+      path: '/trouver-mon-vol',
+      name: 'findVol',
+      component: PageFindVol
     }
     // {
     //   path: '/about',

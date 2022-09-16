@@ -25,5 +25,5 @@ class ReservationFilter(FilterSet):
     
     class Meta:
         model= Reservation
-        fields = ['id', 'nom', 'prenom', 'nb_place', 'vol', 'montant', 'retour_inclut', 'champagne', 'first_class', 'date_depart', 'date_retour']
+        fields = ['id', 'nom', 'prenom', 'nb_place', 'vol', 'montant', 'retour_inclut', 'champagne', 'first_class', 'currency', 'date_depart', 'date_retour']
 

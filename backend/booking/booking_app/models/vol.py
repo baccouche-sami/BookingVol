@@ -6,15 +6,16 @@ class Vol(models.Model):
             verbose_name = "Vol"
             ordering = ['id', 'depart', 'arrive', 'montant']
 
-      STATUTS = (
+      AEROPORTS = (
             ('CDG', ('CDG')),
             ('FJK', ('FJK')),
+            ('LAD', ('LAD')),
             ('DTW', ('DTW'))
       )
 
       code = models.CharField(max_length=255, null = True)
-      depart = models.CharField(max_length=255, null = False, choices=STATUTS)
-      arrive = models.CharField(max_length=255, null = False, choices=STATUTS)
+      depart = models.CharField(max_length=255, null = False, choices=AEROPORTS)
+      arrive = models.CharField(max_length=255, null = False, choices=AEROPORTS)
       montant = models.IntegerField()
       places = models.IntegerField()
 

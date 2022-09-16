@@ -23,5 +23,5 @@ class ReservationSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Reservation
-        fields = ('id', 'nom', 'prenom', 'nb_place', 'url', 'vol', 'montant', 'retour_inclut', 'champagne', 'first_class', 'date_depart', 'date_retour')
+        fields = ('id', 'nom', 'prenom', 'nb_place', 'url', 'vol', 'montant', 'retour_inclut', 'champagne', 'first_class', 'currency', 'date_depart', 'date_retour')
         extra_kwargs = {'montant': {'read_only': True}}

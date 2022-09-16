@@ -1,4 +1,7 @@
 import math
+import requests
+import json
+
 from wsgiref.util import request_uri
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
@@ -11,13 +14,13 @@ from django.contrib.auth.models import User
 from django.http import QueryDict
 from ..models.vol import Vol
 from ..models.reservation import Reservation
-
-import requests
-import json
+from .utils import custom_query, str_to_bool, get_currency
 
 
 
-from .utils import custom_query, str_to_bool
+
+
+
 class UserViewSet(ModelViewSet):
     queryset = User.objects.order_by('pk')
     serializer_class = UserSerializer
@@ -55,9 +58,9 @@ class ReservationViewSet(ModelViewSet):
 
     def create(self, request):
 
-        vol = Vol.objects.get(pk=request.data.get('vol'))
+        vol = Vol.objects.get(pk=int(request.data.get('vol')))
 
-        reservations = Reservation.objects.filter(vol = request.data.get('vol'))
+        reservations = Reservation.objects.filter(vol = int(request.data.get('vol')))
 
         if vol.places <= len(reservations) : return Response("No more seat available", status=status.HTTP_406_NOT_ACCEPTABLE)
         
@@ -76,7 +79,7 @@ class ReservationViewSet(ModelViewSet):
 
             first_class_nb = math.ceil(vol.places * 0.1)
 
-            reservations_first_class = Reservation.objects.filter(vol = request.data.get('vol'), first_class = True)
+            reservations_first_class = Reservation.objects.filter(vol = int(request.data.get('vol')), first_class = True)
 
             if first_class_nb <= len(reservations_first_class) : return Response("No more first class seat available", status=status.HTTP_406_NOT_ACCEPTABLE)
 
@@ -84,6 +87,8 @@ class ReservationViewSet(ModelViewSet):
 
         if retour_inclut : montant_vol *= 1.95
 
+        if(request.data.get('currency') == 'DOLLAR') : montant_vol *= get_currency()["USD"]
+        
         serializer = ReservationSerializer(data=request.data)
         if serializer.is_valid() : serializer.save(montant=montant_vol, vol_id = int(request.data.get('vol')), champagne = champagne, retour_inclut = retour_inclut)
 

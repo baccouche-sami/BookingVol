@@ -17,16 +17,23 @@ from ..models.reservation import Reservation
 from .utils import custom_query, str_to_bool, get_currency
 
 
-
-
-
-
 class UserViewSet(ModelViewSet):
     queryset = User.objects.order_by('pk')
     serializer_class = UserSerializer
     filterset_class = UserFilter
 
 class VolViewSet(ModelViewSet):
+    queryset = Vol.objects.order_by('pk')
+    serializer_class = VolSerializer
+    executed = False
+    
+    def get_queryset(self):
+        if not self.executed :
+            self.executed = True
+            
+            return self.queryset.filter(custom_query(self.request.query_params.dict()))
+
+class VolExterneViewSet(ModelViewSet):
     queryset = Vol.objects.order_by('pk')
     serializer_class = VolSerializer
     executed = False
@@ -42,8 +49,8 @@ class VolViewSet(ModelViewSet):
                 
                 vols.append(vol)
 
-            vols.extend(self.queryset.filter(custom_query(self.request.query_params.dict())))
             return vols
+
 
 class ReservationViewSet(ModelViewSet):
     queryset = Reservation.objects.order_by('pk')
@@ -88,7 +95,7 @@ class ReservationViewSet(ModelViewSet):
         if retour_inclut : montant_vol *= 1.95
 
         if(request.data.get('currency') == 'DOLLAR') : montant_vol *= get_currency()["USD"]
-        
+
         serializer = ReservationSerializer(data=request.data)
         if serializer.is_valid() : serializer.save(montant=montant_vol, vol_id = int(request.data.get('vol')), champagne = champagne, retour_inclut = retour_inclut)
 

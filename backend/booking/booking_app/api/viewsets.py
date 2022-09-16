@@ -1,3 +1,4 @@
+import math
 from wsgiref.util import request_uri
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
@@ -53,14 +54,34 @@ class ReservationViewSet(ModelViewSet):
             return self.queryset.filter(custom_query(self.request.query_params.dict()))
 
     def create(self, request):
+
+        vol = Vol.objects.get(pk=request.data.get('vol'))
+
+        reservations = Reservation.objects.filter(vol = request.data.get('vol'))
+
+        if vol.places <= len(reservations) : return Response("No more seat available", status=status.HTTP_406_NOT_ACCEPTABLE)
+        
         
         champagne = str_to_bool(request.data.get('champagne'))
         retour_inclut = str_to_bool(request.data.get('retour_inclut'))
+        first_class = str_to_bool(request.data.get('first_class'))
 
-        montant_vol = Reservation.objects.get(pk=request.data.get('vol')).montant * int(request.data.get('nb_place'))
-        print(montant_vol)
+        montant_vol = vol.montant * int(request.data.get('nb_place'))
+
         if champagne : montant_vol += 100
-        print(montant_vol)
+
+        
+
+        if first_class : 
+
+            first_class_nb = math.ceil(vol.places * 0.1)
+
+            reservations_first_class = Reservation.objects.filter(vol = request.data.get('vol'), first_class = True)
+
+            if first_class_nb <= len(reservations_first_class) : return Response("No more first class seat available", status=status.HTTP_406_NOT_ACCEPTABLE)
+
+            montant_vol *= 1.5
+
         if retour_inclut : montant_vol *= 1.95
 
         serializer = ReservationSerializer(data=request.data)

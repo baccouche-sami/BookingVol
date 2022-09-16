@@ -7,13 +7,14 @@ class Reservation(models.Model):
 
       class Meta:
             verbose_name = "Reservation"
-            ordering = ['id', 'nom', 'prenom', 'nb_place', 'vol', 'montant', 'champagne', 'date_depart', 'date_retour']
+            ordering = ['id', 'nom', 'prenom', 'nb_place', 'vol', 'montant', 'champagne', 'first_class', 'date_depart', 'date_retour']
       
       nom = models.CharField(max_length=255, null = False)
       prenom = models.CharField(max_length=255, null = False)
       vol = models.ForeignKey(Vol, on_delete = models.CASCADE)
       retour_inclut = models.BooleanField(default=False)
       champagne = models.BooleanField(default=False)
+      first_class = models.BooleanField(default=False)
       nb_place = models.IntegerField(default=1)
       montant = models.IntegerField()
       date_depart = models.DateTimeField(null=True)

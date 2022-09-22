@@ -70,7 +70,7 @@ class ExternalVol(APIView):
             }
         },
         "date": date_str,
-        "payed_price": montant_vol,
+        "payed_price": int(montant_vol),
         "customer_name": request.data.get('prenom') + " " + request.data.get('nom'),
         "customer_nationality": "",
         "options": [],

@@ -266,16 +266,6 @@ export default {
       default: null,
     },
   },
-  computed: {
-    ...mapState(["currency"]),
-
-    total() {
-        let res = this.myReservation.nb_place * this.fly.montant 
-        this.myReservation.champagne ? res+=100 : null;
-        this.myReservation.retour_inclut ? res*=2 :null;
-        return res
-    }
-  },
   data() {
     return {
       enabled: false,
@@ -283,7 +273,6 @@ export default {
       //total:null,
       isOpen: false,
       myReservation: {
-        id:0,
         nom: "",
         prenom: "",
         nb_place: 1,
@@ -293,7 +282,7 @@ export default {
         date_retour: "",
         first_class: false,
         champagne: false,
-        currency:""
+        currency:this.currency
       },
     };
   },
@@ -305,10 +294,10 @@ export default {
       this.isOpen = true;
     },
     ajouterUneReservation() {
-        this.myReservation.currency = this.currency;
+        console.log(this.myReservation);
         this.isOpen = false;
         const toast = useToast();
-        console.log(this.currency);
+
         const res = this.$store.dispatch("ajoutReservation", this.myReservation);
         if (res) {
           toast.success("Merci ! Votre réservation a été enregistrée avec succès.");
@@ -319,8 +308,17 @@ export default {
         }
 
     },
+  },
+  computed: {
+    ...mapState(["currency"]),
+
+    total() {
+        let res = this.myReservation.nb_place * this.fly.montant 
+        this.myReservation.champagne ? res+=100 : null;
+        this.myReservation.retour_inclut ? res*=2 :null;
+        return res
+    }
   }
-  
 };
 </script>
 <style lang=""></style>

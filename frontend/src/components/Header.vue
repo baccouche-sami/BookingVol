@@ -20,13 +20,11 @@
 
             <a href="/trouver-mon-vol" class="text-base font-medium text-gray-500 hover:text-gray-900">Trouver mon Vol</a>
             <a href="/Bookings" class="text-base font-medium text-gray-500 hover:text-gray-900">Gérer mes reservations</a>
-            <a href="/Bookings" class="text-base font-medium text-gray-500 hover:text-gray-900">Informations</a>
 
             
           </PopoverGroup> 
           <div class="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-            <a href="#" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">Sign in</a>
-            <a href="#" class="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-blue-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-700 mr-3">Sign up</a>
+            
             <UISwitcher/>
           </div>
         </div>
@@ -56,11 +54,9 @@
 
               </div>
               <div>
-                <a href="#" class="flex w-full items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-700">Sign up</a>
-                <p class="mt-6 text-center text-base font-medium text-gray-500">
-                  Déja un client?
-                  <a href="#" class="text-blue-600 hover:text-blue-500">Sign in</a>
-                </p>
+                                <UISwitcher class="flex w-full items-center justify-center mb-4"/>
+
+               
               </div>
             </div>
           </div>

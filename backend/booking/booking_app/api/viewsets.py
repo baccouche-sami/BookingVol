@@ -73,7 +73,7 @@ class ReservationViewSet(ModelViewSet):
 
             if first_class_nb <= len(reservations_first_class) : return Response("No more first class seat available", status=status.HTTP_406_NOT_ACCEPTABLE)
 
-            montant_vol *= 1.5
+            montant_vol += montant_vol * 1.5
 
         if retour_inclut : montant_vol *= 1.95
 

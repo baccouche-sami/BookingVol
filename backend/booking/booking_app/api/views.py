@@ -3,8 +3,8 @@ import json
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from ..models.vol import Vol
 from datetime import datetime
+from .utils import get_currency
 
 
 class ExternalVol(APIView):
@@ -12,14 +12,26 @@ class ExternalVol(APIView):
     def get(self, request, format=None):
         result = requests.get('https://api-6yfe7nq4sq-uc.a.run.app/flights')
         vols = []
+        currencies = get_currency()
         for external_vol in json.loads(result.content.decode('utf-8')):
+            
+              
+            montant = external_vol["base_price"]
+
+            price_dict = {
+
+            }
+
+            for currency in currencies:
+                price_dict[currency] = montant * float(currencies[currency])
+            
             vol = {
               "code" : external_vol["code"],
               "depart" : external_vol["departure"],
               "arrive" : external_vol["arrival"],
               "montant" : external_vol["base_price"],
               "places" : external_vol["plane"]["total_seats"],
-
+              "price_map" : price_dict
             }
             
             vols.append(vol)

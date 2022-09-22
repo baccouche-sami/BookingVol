@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Bookings from '../views/Bookings.vue'
 import PageFindVol from '../views/PageFindVol.vue'
+import Offres from "../views/Offres.vue";
 
 
 
@@ -9,20 +10,25 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: HomeView
+      path: "/",
+      name: "home",
+      component: HomeView,
     },
     {
-      path: '/bookings',
-      name: 'bookings',
-      component: Bookings
+      path: "/bookings",
+      name: "bookings",
+      component: Bookings,
     },
     {
-      path: '/trouver-mon-vol',
-      name: 'findVol',
-      component: PageFindVol
-    }
+      path: "/trouver-mon-vol",
+      name: "findVol",
+      component: PageFindVol,
+    },
+    {
+      path: "/offres",
+      name: "offres",
+      component: Offres,
+    },
     // {
     //   path: '/about',
     //   name: 'about',
@@ -31,7 +37,7 @@ const router = createRouter({
     //   // which is lazy-loaded when the route is visited.
     //   component: () => import('../views/AboutView.vue')
     // }
-  ]
-})
+  ],
+});
 
 export default router

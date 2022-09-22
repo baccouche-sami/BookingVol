@@ -1,5 +1,7 @@
+
+
 <template lang="">
-  <div v-for="item of items">
+    <div v-for="item of items">
     <div class="itemVol">
       <span>Depart: {{ item.depart }}</span>
       <span>Arrivee: {{ item.arrive }}</span>
@@ -11,17 +13,12 @@
       </div>  
     </div>
   </div>
-  
 </template>
-
 <script>
-import { defineComponent } from "vue";
-export default defineComponent({
-  name: "HomeComponent",
-  setup() {
-    const items = [];
+export default {
+  data() {
     return {
-      items,
+      items: [],
     };
   },
   async created() {
@@ -29,14 +26,12 @@ export default defineComponent({
     console.log(res);
     this.items = res;
     res.forEach((element) => {
-      this.items.push(element); 
+      this.items.push(element);
     });
-
-    //appeler la methode addReservation pour enregistre une nouvelle reservation
   },
-});
+};
 </script>
-<style>
+<style >
 .itemVol {
   display: flex;
   flex-direction: column;

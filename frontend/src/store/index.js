@@ -5,7 +5,7 @@ export default createStore({
   state: {
     vols: [],
     bookings: [],
-    currency: "EURO"
+    currency: "EUR"
   },
   getters: {
     getVols: (state) => state.vols,
@@ -18,9 +18,11 @@ export default createStore({
     async fetchVols({ commit }) {
       try {
         const data = await axios.get("http://127.0.0.1:8000/booking/vols/");
-        commit("SET_VOLS", data.data);
+        const dataExt = await axios.get("http://127.0.0.1:8000/booking/external");
+        const finalData = dataExt.data ? [...data.data,...dataExt.data] : data.data;
+        commit("SET_VOLS", finalData);
 
-        return data.data;
+        return finalData;
       } catch (error) {
         //alert(error)
         console.log(error);
@@ -40,6 +42,16 @@ export default createStore({
     ajoutReservation({ commit }, myReservation) {
       axios
         .post("http://127.0.0.1:8000/booking/reservations/", myReservation)
+        .then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          return error
+        });
+    },
+    ajoutReservationExternal({ commit }, myReservation) {
+      axios
+        .post("http://127.0.0.1:8000/booking/external", myReservation)
         .then((response) => {
           return response.data;
         })

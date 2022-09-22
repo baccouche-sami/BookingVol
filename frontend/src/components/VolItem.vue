@@ -5,7 +5,7 @@
         Vol #BV{{ fly.id }}
       </h3>
       <h5 class="text-md font-medium leading-6 text-gray-900">
-        {{ fly.montant }} $
+        {{ priceVol }} 
       </h5>
 
       <div class="mt-2 sm:flex sm:items-start sm:justify-between">
@@ -276,7 +276,8 @@ export default {
         nom: "",
         prenom: "",
         nb_place: 1,
-        vol:this.fly.id ? this.fly.id : this.fly.code,
+        vol:this.fly.id,
+        code:this.fly.code,
         retour_inclut: false,
         date_depart: "",
         date_retour: "",
@@ -294,11 +295,15 @@ export default {
       this.isOpen = true;
     },
     ajouterUneReservation() {
-        console.log(this.myReservation);
         this.isOpen = false;
         const toast = useToast();
+        if (this.fly.code) {
+                  const res = this.$store.dispatch("ajoutReservationExternal", this.myReservation);
 
-        const res = this.$store.dispatch("ajoutReservation", this.myReservation);
+        } else {
+                  const res = this.$store.dispatch("ajoutReservation", this.myReservation);
+
+        }
         if (res) {
           toast.success("Merci ! Votre réservation a été enregistrée avec succès.");
         }
@@ -311,6 +316,10 @@ export default {
   },
   computed: {
     ...mapState(["currency"]),
+
+    priceVol(){
+      return this.currency === "EUR" ? this.fly.montant +" "+ this.currency: this.fly.price_map[this.currency] +" "+ this.currency
+    },
 
     total() {
         let res = this.myReservation.nb_place * this.fly.montant 

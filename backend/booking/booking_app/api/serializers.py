@@ -18,7 +18,6 @@ class VolSerializer(serializers.ModelSerializer):
         model = Vol
         fields = ('id', 'code', 'url', 'depart', 'arrive', 'montant', 'places')
 
-
 class ReservationSerializer(serializers.ModelSerializer):
     
     class Meta:

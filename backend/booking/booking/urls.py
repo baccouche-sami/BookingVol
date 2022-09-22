@@ -16,8 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from booking_app.api import route as approute
+from booking_app.api.views import ExternalVol
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('booking/', include(approute.router.urls)),
+    path('booking/external', ExternalVol.as_view()),
 ]

@@ -42,7 +42,7 @@ class ExternalVol(APIView):
       vols = json.loads(requests.get('https://api-6yfe7nq4sq-uc.a.run.app/flights').content.decode('utf-8'))
       vol = list(filter(lambda vol: vol["code"] == request.data.get("code"), vols))
 
-      date = datetime.strptime(request.data.get('date_depart'), "%Y-%m-%dT%H:%M:%SZ")
+      date = datetime.strptime(request.data.get('date_depart'), "%Y-%m-%d")
       date_str = date.strftime("%d-%m-%Y")
       payload = {
         "code": "None",

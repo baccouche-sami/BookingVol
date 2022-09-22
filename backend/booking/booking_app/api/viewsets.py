@@ -27,8 +27,10 @@ class VolViewSet(ModelViewSet):
     def get_queryset(self):
         if not self.executed :
             self.executed = True
+
+            self.queryset = self.queryset.filter(custom_query(self.request.query_params.dict()))
             
-            return self.queryset.filter(custom_query(self.request.query_params.dict()))
+            return self.queryset
 
 
 
@@ -74,8 +76,6 @@ class ReservationViewSet(ModelViewSet):
             montant_vol *= 1.5
 
         if retour_inclut : montant_vol *= 1.95
-
-        if(request.data.get('currency') == 'DOLLAR') : montant_vol *= get_currency()["USD"]
 
         serializer = ReservationSerializer(data=request.data)
         if serializer.is_valid() : serializer.save(montant=montant_vol, vol_id = int(request.data.get('vol')), champagne = champagne, retour_inclut = retour_inclut)

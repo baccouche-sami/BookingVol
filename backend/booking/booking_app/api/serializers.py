@@ -2,6 +2,7 @@ from rest_framework import serializers
 from ..models.vol import Vol
 from ..models.reservation import Reservation
 from django.contrib.auth.models import User
+from .utils import get_currency
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -14,9 +15,25 @@ class UserSerializer(serializers.ModelSerializer):
 
 class VolSerializer(serializers.ModelSerializer):
 
+    price_map = serializers.SerializerMethodField()
+
     class Meta:
         model = Vol
-        fields = ('id', 'code', 'url', 'depart', 'arrive', 'montant', 'places')
+        fields = ('id', 'code', 'url', 'depart', 'arrive', 'montant', 'places', 'price_map')
+
+    def get_price_map(self, obj):
+        currencies = get_currency()
+            
+        montant = obj.montant
+
+        price_dict = {
+
+        }
+
+        for currency in currencies:
+            price_dict[currency] = montant * float(currencies[currency])
+        
+        return price_dict
 
 class ReservationSerializer(serializers.ModelSerializer):
     

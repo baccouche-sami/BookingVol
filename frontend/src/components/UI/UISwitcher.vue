@@ -22,8 +22,8 @@
         focus:ring-blue-500
       "
     >
-      <CurrencyEuroIcon class="h-5 w-5 text-blue-500" aria-hidden="true" v-if="currency==='EURO'"  />
-      <CurrencyDollarIcon  class="h-5 w-5 text-blue-500" aria-hidden="true" v-if="currency==='DOLLAR'" />
+      <CurrencyEuroIcon class="h-5 w-5 text-blue-500" aria-hidden="true" v-if="currency==='EUR'"  />
+      <CurrencyDollarIcon  class="h-5 w-5 text-blue-500" aria-hidden="true" v-if="currency==='USD'" />
 
     </button>
     <Menu as="div" class="relative -ml-px block">
@@ -122,8 +122,8 @@ export default {
   setup() {
     const store = useStore();
     const items = [
-      { name: "EURO", href: "#", active: true },
-      { name: "DOLLAR", href: "#" },
+      { name: "EUR", href: "#", active: true },
+      { name: "USD", href: "#" },
     ];
     function switcher(currency) {
       store.commit("SET_DEVIS", currency);

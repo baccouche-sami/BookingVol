@@ -13,7 +13,6 @@ def get_currency() :
   tree = ET.fromstring(result.content.decode('utf-8'))
 
   for currency in tree[2][0] :
-    print(currency.attrib)
     currencies[currency.attrib["currency"]] = currency.attrib["rate"]
 
   return currencies
@@ -31,5 +30,3 @@ def custom_query(params):
           sub_query |= Q(**{'' + param : value})
       query &= sub_query
   return query
-
-print(get_currency())

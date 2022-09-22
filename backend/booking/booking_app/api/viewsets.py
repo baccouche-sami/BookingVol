@@ -1,8 +1,5 @@
 import math
-import requests
-import json
 
-from wsgiref.util import request_uri
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework import status
@@ -33,23 +30,7 @@ class VolViewSet(ModelViewSet):
             
             return self.queryset.filter(custom_query(self.request.query_params.dict()))
 
-class VolExterneViewSet(ModelViewSet):
-    queryset = Vol.objects.order_by('pk')
-    serializer_class = VolSerializer
-    executed = False
-    
-    def get_queryset(self):
-        if not self.executed :
-            self.executed = True
 
-            result = requests.get('https://api-6yfe7nq4sq-uc.a.run.app/flights')
-            vols = []
-            for external_vol in json.loads(result.content.decode('utf-8')):
-                vol = Vol(code = external_vol["code"], depart = external_vol["departure"], arrive = external_vol["arrival"], montant = external_vol["base_price"], places = external_vol["plane"]["total_seats"])
-                
-                vols.append(vol)
-
-            return vols
 
 
 class ReservationViewSet(ModelViewSet):

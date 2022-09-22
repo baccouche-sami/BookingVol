@@ -1,91 +1,38 @@
 <template lang="">
   <div v-for="item of items">
     <div class="itemVol">
-      <span>Depart: {{ item.queryDepart }}</span>
-      <span>Arrivee: {{ item.queryArrivee }}</span>
-      <span>Places disponible: {{ item.nbPlaces }}</span>
-      <span>Promo: {{ item.promo }}</span>   
+      <span>Depart: {{ item.depart }}</span>
+      <span>Arrivee: {{ item.arrive }}</span>
+      <span>Places disponible: {{ item.places }}</span>
+      <span>Promo: 10% de réduction</span> 
+      <div>
+        Prix: <span class="ancienMontant">{{ item.montant }} €</span>  |
+        <span>{{ item.montant - item.montant * 0.01 }} € </span>
+      </div>  
     </div>
   </div>
+  
 </template>
 
 <script>
 import { defineComponent } from "vue";
 export default defineComponent({
+  name: "HomeComponent",
   setup() {
-    const items = [
-      {
-        queryDepart: "CDS",
-        queryDestination: "CDG",
-        enabled: true,
-        isOpen: false,
-        selectedDepart: null,
-        selectedDestination: null,
-        nbPlaces: 1,
-        promo: "15% de réduction",
-        placesDepart: [],
-        placesDestination: [],
-
-        destination: [],
-      },
-      {
-        queryDepart: "Paris",
-        queryDestination: "Lyon",
-        enabled: false,
-        isOpen: false,
-        selectedDepart: null,
-        selectedDestination: null,
-        nbPlaces: 1,
-        placesDepart: [],
-        placesDestination: [],
-
-        destination: [],
-      },
-      {
-        queryDepart: "Dallas",
-        queryDestination: "Zurich",
-        enabled: false,
-        isOpen: false,
-        selectedDepart: null,
-        selectedDestination: null,
-        nbPlaces: 1,
-        promo: "10% de réduction",
-        placesDepart: [],
-        placesDestination: [],
-
-        destination: [],
-      },
-      {
-        queryDepart: "Madrid",
-        queryDestination: "Helsinki",
-        enabled: false,
-        isOpen: false,
-        selectedDepart: null,
-        selectedDestination: null,
-        nbPlaces: 1,
-        promo: "20% de réduction",
-        placesDepart: [],
-        placesDestination: [],
-
-        destination: [],
-      },
-      {
-        queryDepart: "Vancouver",
-        queryDestination: "Lisbon",
-        enabled: false,
-        isOpen: false,
-        selectedDepart: null,
-        selectedDestination: null,
-        nbPlaces: 1,
-        promo: "10% de réduction",
-        placesDepart: [],
-        placesDestination: [],
-        destination: [],
-      },
-    ];
+    const items = [];
     return {
       items,
     };
+  },
+  async created() {
+    const res = await this.$store.dispatch("fetchVols");
+    console.log(res);
+    this.items = res;
+    res.forEach((element) => {
+      this.items.push(element); 
+    });
+
+    //appeler la methode addReservation pour enregistre une nouvelle reservation
   },
 });
 </script>
@@ -100,5 +47,9 @@ export default defineComponent({
   margin-left: 100px;
   margin-right: 100px;
   padding: 10px;
+}
+.ancienMontant {
+  text-decoration: line-through;
+  font-weight: 100;
 }
 </style>

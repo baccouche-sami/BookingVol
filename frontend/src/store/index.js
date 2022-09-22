@@ -5,11 +5,13 @@ export default createStore({
   state: {
     vols: [],
     bookings: [],
-    currency: "EUR"
+    currency: "EURO"
   },
   getters: {
     getVols: (state) => state.vols,
     getBookings: (state) => state.bookings,
+    getCurrency: (state) => state.currency,
+
 
   },
   actions: {
@@ -39,11 +41,10 @@ export default createStore({
       axios
         .post("http://127.0.0.1:8000/booking/reservations/", myReservation)
         .then((response) => {
-          console.log(response);
+          return response.data;
         })
         .catch((error) => {
-          console.log(error);
-          console.log("impossible d'enregistrer cette reservation");
+          return error
         });
     },
   },
@@ -53,6 +54,9 @@ export default createStore({
     },
     SET_BOOKINGS(state, bookings) {
         state.bookings = bookings;
+      },
+    SET_DEVIS(state, currency) {
+        state.currency = currency;
       },
   },
 });

@@ -5,7 +5,7 @@ export default createStore({
   state: {
     vols: [],
     bookings: [],
-    currency: "EUR"
+    currency: "EURO"
   },
   getters: {
     getVols: (state) => state.vols,

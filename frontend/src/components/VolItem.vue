@@ -144,6 +144,34 @@
                     </Switch>
                   </div>
 
+                  <div class="pt-5">
+                    <label
+                      for="email"
+                      class="block text-sm font-medium text-gray-700 pb-2"
+                      >First Class</label
+                    >
+                    <Switch
+                      v-model="myReservation.first_class"
+                      :class="[
+                        myReservation.first_class
+                          ? 'bg-blue-600'
+                          : 'bg-gray-200',
+                        'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
+                      ]"
+                    >
+                      <span class="sr-only">Use setting</span>
+                      <span
+                        aria-hidden="true"
+                        :class="[
+                          myReservation.first_class
+                            ? 'translate-x-5'
+                            : 'translate-x-0',
+                          'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
+                        ]"
+                      />
+                    </Switch>
+                  </div>
+
                   <div
                     class="pt-5"
                     v-if="
@@ -154,7 +182,7 @@
                     <label
                       for="email"
                       class="block text-sm font-medium text-gray-700 pb-2"
-                      >Option Champagne (+100$)</label
+                      >Option Champagne (+100EUR)</label
                     >
 
                     <Switch
@@ -283,7 +311,7 @@ export default {
         date_retour: "",
         first_class: false,
         champagne: false,
-        currency:this.currency
+        currency:""
       },
     };
   },
@@ -297,11 +325,13 @@ export default {
     ajouterUneReservation() {
         this.isOpen = false;
         const toast = useToast();
+        this.myReservation.currency = this.currency;
+        let res = null;
         if (this.fly.code) {
-                  const res = this.$store.dispatch("ajoutReservationExternal", this.myReservation);
+                  res = this.$store.dispatch("ajoutReservationExternal", this.myReservation);
 
         } else {
-                  const res = this.$store.dispatch("ajoutReservation", this.myReservation);
+                  res = this.$store.dispatch("ajoutReservation", this.myReservation);
 
         }
         if (res) {
@@ -318,11 +348,14 @@ export default {
     ...mapState(["currency"]),
 
     priceVol(){
-      return this.currency === "EUR" ? this.fly.montant +" "+ this.currency: this.fly.price_map[this.currency] +" "+ this.currency
+      return this.currency === "EURO" ? this.fly.montant +" "+ this.currency: this.fly.price_map[this.currency ==='DOLLAR' ? 'USD' : 0 ] + " "+ this.currency
+    },
+    priceVolSimple(){
+      return this.currency === "EURO" ? this.fly.montant : this.fly.price_map[this.currency === 'DOLLAR' ? 'USD' : 0 ] 
     },
 
     total() {
-        let res = this.myReservation.nb_place * this.fly.montant 
+        let res = this.myReservation.nb_place * this.priceVolSimple
         this.myReservation.champagne ? res+=100 : null;
         this.myReservation.retour_inclut ? res*=2 :null;
         return res

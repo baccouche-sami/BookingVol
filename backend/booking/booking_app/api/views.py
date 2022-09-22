@@ -1,10 +1,11 @@
 import requests
 import json
+import math
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from datetime import datetime
-from .utils import get_currency
+from .utils import get_currency, str_to_bool
 
 
 class ExternalVol(APIView):
@@ -42,6 +43,18 @@ class ExternalVol(APIView):
       vols = json.loads(requests.get('https://api-6yfe7nq4sq-uc.a.run.app/flights').content.decode('utf-8'))
       vol = list(filter(lambda vol: vol["code"] == request.data.get("code"), vols))
 
+      champagne = str_to_bool(request.data.get('champagne'))
+      retour_inclut = str_to_bool(request.data.get('retour_inclut'))
+      first_class = str_to_bool(request.data.get('first_class'))
+
+      montant_vol = vol[0]["base_price"] * int(request.data.get('nb_place'))
+
+      if champagne : montant_vol += 100
+
+      if first_class : montant_vol += montant_vol * 1.5
+
+      if retour_inclut : montant_vol *= 1.95
+
       date = datetime.strptime(request.data.get('date_depart'), "%Y-%m-%d")
       date_str = date.strftime("%d-%m-%Y")
       payload = {
@@ -57,7 +70,7 @@ class ExternalVol(APIView):
             }
         },
         "date": date_str,
-        "payed_price": request.data.get('montant'),
+        "payed_price": montant_vol,
         "customer_name": request.data.get('prenom') + " " + request.data.get('nom'),
         "customer_nationality": "",
         "options": [],

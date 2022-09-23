@@ -5,14 +5,12 @@ export default createStore({
   state: {
     vols: [],
     bookings: [],
-    currency: "EURO"
+    currency: "EURO",
   },
   getters: {
     getVols: (state) => state.vols,
     getBookings: (state) => state.bookings,
     getCurrency: (state) => state.currency,
-
-
   },
   actions: {
     async fetchVols({ commit }) {
@@ -48,16 +46,18 @@ export default createStore({
       
     },
     async fetchBookings({ commit }) {
-        try {
-          const data = await axios.get("http://127.0.0.1:8000/booking/reservations/");
-          commit("SET_BOOKINGS", data.data);
-  
-          return data.data;
-        } catch (error) {
-          //alert(error)
-          console.log(error);
-        }
-      },
+      try {
+        const data = await axios.get(
+          "http://127.0.0.1:8000/booking/reservations/"
+        );
+        commit("SET_BOOKINGS", data.data);
+
+        return data.data;
+      } catch (error) {
+        //alert(error)
+        console.log(error);
+      }
+    },
     ajoutReservation({ commit }, myReservation) {
       axios
         .post("http://127.0.0.1:8000/booking/reservations/", myReservation)
@@ -65,7 +65,7 @@ export default createStore({
           return response.data;
         })
         .catch((error) => {
-          return error
+          return error;
         });
     },
     ajoutReservationExternal({ commit }, myReservation) {
@@ -75,33 +75,49 @@ export default createStore({
           return response.data;
         })
         .catch((error) => {
-          return error
+          return error;
         });
     },
     //begin getOneBooking
-    async getOneBooking({ commit }, id) { 
+    async getOneBooking({ commit }, id) {
       try {
-        const data = await axios.get("http://127.0.0.1:8000/booking/reservations/"+id);
+        const data = await axios.get(
+          "http://127.0.0.1:8000/booking/reservations/" + id
+        );
         commit("SET_BOOKINGS", data.data);
         return data.data;
       } catch (error) {
         //alert(error)
         console.log(error);
-      } 
+      }
     },
-
     //end GetOneBooking
+
+    //begin getOneVol
+    async getOneVol({ commit }, id) {
+      try {
+        const data = await axios.get(
+          "http://127.0.0.1:8000/booking/vols/" + id
+        );
+        commit("SET_VOLS", data.data);
+        return data.data;
+      } catch (error) {
+        //alert(error)
+        console.log(error);
+      }
+    },
+    //end GetOneVol
   },
   mutations: {
     SET_VOLS(state, vols) {
       state.vols = vols;
     },
     SET_BOOKINGS(state, bookings) {
-        state.bookings = bookings;
-      },
+      state.bookings = bookings;
+    },
     SET_DEVIS(state, currency) {
-        state.currency = currency;
-      },
+      state.currency = currency;
+    },
   },
 });
 

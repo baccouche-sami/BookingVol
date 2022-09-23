@@ -16,17 +16,36 @@ export default createStore({
   },
   actions: {
     async fetchVols({ commit }) {
+      let data = null;
+      let dataExt =  null;
+      let finalData = null;
       try {
-        const data = await axios.get("http://127.0.0.1:8000/booking/vols/");
-        const dataExt = await axios.get("http://127.0.0.1:8000/booking/external");
-        const finalData = dataExt.data ? [...data.data,...dataExt.data] : data.data;
-        commit("SET_VOLS", finalData);
-
-        return finalData;
+        data = await axios.get("http://127.0.0.1:8000/booking/vols/");
       } catch (error) {
-        //alert(error)
         console.log(error);
       }
+      try {
+        dataExt = await axios.get("http://127.0.0.1:8000/booking/external",{timeout: 1000});
+
+      } catch (error) {
+        console.log(error);
+      }
+      
+      if (data && dataExt) {
+        finalData = [...data.data,...dataExt.data] 
+      }
+      else if (data){
+        finalData= data.data
+      }
+      else if (dataExt)
+      {
+        finalData = dataExt.data
+      }
+      commit("SET_VOLS", finalData);
+
+      return finalData;
+      
+      
     },
     async fetchBookings({ commit }) {
         try {

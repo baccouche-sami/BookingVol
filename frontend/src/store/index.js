@@ -78,6 +78,19 @@ export default createStore({
           return error
         });
     },
+    //begin getOneBooking
+    async getOneBooking({ commit }, id) { 
+      try {
+        const data = await axios.get("http://127.0.0.1:8000/booking/reservations/"+id);
+        commit("SET_BOOKINGS", data.data);
+        return data.data;
+      } catch (error) {
+        //alert(error)
+        console.log(error);
+      } 
+    },
+
+    //end GetOneBooking
   },
   mutations: {
     SET_VOLS(state, vols) {
@@ -91,3 +104,5 @@ export default createStore({
       },
   },
 });
+
+

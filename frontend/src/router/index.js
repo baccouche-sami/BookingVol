@@ -4,6 +4,8 @@ import Bookings from '../views/Bookings.vue'
 import PageFindVol from '../views/PageFindVol.vue'
 import Offres from "../views/Offres.vue";
 
+import DetailBook from "../views/DetailBook.vue";
+
 
 
 const router = createRouter({
@@ -19,6 +21,12 @@ const router = createRouter({
       name: "bookings",
       component: Bookings,
     },
+    {
+      path: "/bookings/:id",
+      name: "detailBooking",
+      component: DetailBook,
+    },
+
     {
       path: "/trouver-mon-vol",
       name: "findVol",

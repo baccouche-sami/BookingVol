@@ -1,22 +1,22 @@
 from django.db import models
 
-class Vol(models.Model):
+class Train(models.Model):
 
       class Meta:
-            verbose_name = "Vol"
-            ordering = ['id', 'nom', 'depart', 'arrive', 'montant']
+            verbose_name = "Train"
+            ordering = ['id', 'nom',  'depart', 'arrive', 'montant']
 
-      AEROPORTS = (
+      GARES = (
             ('CDG', ('CDG')),
             ('JFK', ('JFK')),
-            ('LAD', ('LAD')),
-            ('DTW', ('DTW'))
+            ('EWR', ('EWR')),
+            ('ORD', ('ORD'))
       )
 
       code = models.CharField(max_length=255, null = True)
       nom = models.CharField(max_length=255, null = True)
-      depart = models.CharField(max_length=255, null = False, choices=AEROPORTS)
-      arrive = models.CharField(max_length=255, null = False, choices=AEROPORTS)
+      depart = models.CharField(max_length=255, null = False, choices=GARES)
+      arrive = models.CharField(max_length=255, null = False, choices=GARES)
       montant = models.IntegerField()
       places = models.IntegerField()
 

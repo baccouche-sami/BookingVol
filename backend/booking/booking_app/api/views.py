@@ -52,12 +52,12 @@ class ExternalVol(APIView):
 
     reservation_endpoint = {
       "prof" : "https://api-6yfe7nq4sq-uc.a.run.app/book",
-      "team" : "https://10.8.110.210:52880/Booking/"
+      #"team" : "https://10.8.110.210:52880/Booking/"
     }
 
     vol_endpoint = {
       "prof" : "https://api-6yfe7nq4sq-uc.a.run.app/flights",
-      "team" : "https://10.8.110.210:52880/Flight/"
+      #"team" : "https://10.8.110.210:52880/Flight/"
     }
 
     def get(self, request, format=None):
@@ -65,8 +65,11 @@ class ExternalVol(APIView):
         currencies = get_currency()
         vols = []
         for endpoint in self.vol_endpoint :
-          result = requests.get(self.vol_endpoint[endpoint], verify=False)
-
+          result = None
+          try:
+            result = requests.get(self.vol_endpoint[endpoint], verify=False, timeout=5)
+          except :
+            continue
           
           for external_vol in json.loads(result.content.decode('utf-8')):
               

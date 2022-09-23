@@ -2,6 +2,7 @@ from .serializers import *
 from django_filters import CharFilter, FilterSet
 from django.contrib.auth.models import User
 from ..models.vol import Vol
+from ..models.train import Train
 from ..models.reservation import Reservation
 
 
@@ -19,11 +20,17 @@ class VolFilter(FilterSet):
     
     class Meta:
         model= Vol
-        fields = ['id', 'code', 'depart', 'arrive', 'montant', 'places']
+        fields = ['id', 'code', 'nom', 'depart', 'arrive', 'montant', 'places']
+
+class TrainFilter(FilterSet):
+    
+    class Meta:
+        model= Train
+        fields = ['id', 'code', 'nom', 'depart', 'arrive', 'montant', 'places']
 
 class ReservationFilter(FilterSet):
     
     class Meta:
         model= Reservation
-        fields = ['id', 'nom', 'prenom', 'nb_place', 'vol', 'montant', 'retour_inclut', 'champagne', 'first_class', 'currency', 'date_depart', 'date_retour']
+        fields = ['id', 'nom', 'prenom', 'nb_place', 'content_type', 'transport', 'montant', 'retour_inclut', 'champagne', 'first_class', 'currency', 'date_depart', 'date_retour']
 

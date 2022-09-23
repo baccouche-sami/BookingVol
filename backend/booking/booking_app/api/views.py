@@ -145,7 +145,6 @@ def build_booking(source, booking) :
   return payload
 
 class ExternalVol(APIView):
-
     def get(self, request, format=None):
 
         currencies = get_currency()

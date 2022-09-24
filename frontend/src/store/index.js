@@ -6,7 +6,7 @@ export default createStore({
     vols: [],
     trains: [],
     bookings: [],
-    currency: "EURO",
+    currency: "EURO"
   },
   getters: {
     getVols: (state) => state.trains,

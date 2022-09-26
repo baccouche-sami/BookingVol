@@ -14,5 +14,6 @@ Choix de cette technologie: cette technologie à été choisie car la majorité 
  ##Communication avec le back-end: pour envoyer des requetes depuis la partie front-end de l'application, nous avons utilisé axios.
  L'application est 100% responsive pour s'adapter à tout type d'ecran.
  #Lancement Front-end: pour demarrer l'application coté front-end on fait:
+On accede au repertoire du front-end qui setrouve dans 'BookingVol/frontend', ensuite on fait:
   ``npm intall`` (pour installer toutes les dependances neccessaires), ensuite 
   ``npm run dev`` (pour demarrer l'application)

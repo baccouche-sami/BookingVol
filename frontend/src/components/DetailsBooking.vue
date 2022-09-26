@@ -1,7 +1,7 @@
 <template lang="">
   <div>
     <p>
-      <span>Détails de la reservation n° {{ id }}</span> <br />
+      <span>Détails de la reservation n° #R00A-{{ id }}</span> <br />
       <span>Vol: {{ vol.depart }} --> {{ vol.arrive }}</span> <br />
       <span
         >Nom et Prénom: {{ myReservation.nom }} {{ myReservation.prenom }}</span
@@ -20,15 +20,17 @@
   <button class="Button">
     <slot>Annuler</slot>
   </button>
-  <button class="Button Button2">
-    <slot>Modifier</slot>
-  </button>
+  <ButtonBook :IsButton="false" :fly="myReservation" />
 </template>
 
 <script>
 import { defineComponent } from "vue";
+import ButtonBook from "./ButtonBook.vue";
 export default defineComponent({
   name: "DetailsBookingComponent",
+    components: {
+        ButtonBook,
+    },
 
   data() {
     return {
@@ -51,6 +53,7 @@ export default defineComponent({
       },
     };
   },
+
   async created() {
     const reservation = await this.$store.dispatch("getOneBooking", this.id);
     this.myReservation = reservation;
@@ -66,7 +69,7 @@ export default defineComponent({
 </script>
 <style>
 .Button {
-  background-color: #E49439; /* Green */
+  background-color: #e49439; /* Green */
   border: none;
   color: white;
   padding: 6px 8px;

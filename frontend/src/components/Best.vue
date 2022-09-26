@@ -35,7 +35,6 @@
       <div>
         <div class="-mt-px flex divide-x divide-gray-200">
               <ButtonBook :IsButton="false" :fly="item"/>
-         
         </div>
       </div>
     </li>

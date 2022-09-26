@@ -168,7 +168,7 @@ class ExternalVol(APIView):
 
       result = None
 
-      payload = build_booking()
+      payload = build_booking(source, request.data)
         
       try :
         result = requests.post(self.reservation_endpoint[source], json = payload)

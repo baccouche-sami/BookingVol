@@ -10,7 +10,7 @@ Le but c'est d'apprendre à developper les solutions informatiques tout en tenan
 
 #Front-end:
 Le coté  frontend à été developpé en vue.js, pour la mise en forme des pages nous avons utliser la bibliothèque tailwind css et HeadLess ui
-Choix de cette technologie: cette technologie à été choisie car la majorité l'avait déja utilisé etb donc cela faciliterai le travail de groupe.
+## Choix de cette technologie: cette technologie à été choisie car la majorité l'avait déja utilisé et donc cela faciliterai le travail de groupe.
  ##Communication avec le back-end: pour envoyer des requetes depuis la partie front-end de l'application, nous avons utilisé axios.
  L'application est 100% responsive pour s'adapter à tout type d'ecran.
  #Lancement Front-end: pour demarrer l'application coté front-end on fait:

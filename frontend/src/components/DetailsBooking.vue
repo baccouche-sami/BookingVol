@@ -1,14 +1,14 @@
 <template lang="">
   <div>
     <p>
-      <span>Détails de la reservation n° {{ id }}</span> <br />
+      <span>Détails de la reservation n° #R00A-{{ id }}</span> <br />
       <span>Vol: {{ vol.depart }} --> {{ vol.arrive }}</span> <br />
       <span
         >Nom et Prénom: {{ myReservation.nom }} {{ myReservation.prenom }}</span
       >
       <br />
       <span>Nombre de passagers: {{ myReservation.nb_place }}</span> <br />
-      <span>Rétour inclut: {{ myReservation.retour_inclut }} </span> <br />
+      <span>Retour inclut: {{ myReservation.retour_inclut }} </span> <br />
       <span>Option Champagne Inclut: {{ myReservation.champagne }} </span>
       <br />
       <span
@@ -17,12 +17,20 @@
       <br />
     </p>
   </div>
+  <button class="Button">
+    <slot>Annuler</slot>
+  </button>
+
 </template>
 
 <script>
 import { defineComponent } from "vue";
+import ButtonBook from "./ButtonBook.vue";
 export default defineComponent({
   name: "DetailsBookingComponent",
+    components: {
+        ButtonBook,
+    },
 
   data() {
     return {
@@ -35,7 +43,7 @@ export default defineComponent({
         currency: "",
         montant: 0,
         retour_inclut: false,
-        vol: 0,
+        transport: 0,
         first_class: false,
       },
       vol: {
@@ -45,14 +53,34 @@ export default defineComponent({
       },
     };
   },
+
   async created() {
     const reservation = await this.$store.dispatch("getOneBooking", this.id);
     this.myReservation = reservation;
     console.log(reservation);
-    const vol = await this.$store.dispatch("getOneVol", this.myReservation.vol);
+    const vol = await this.$store.dispatch(
+      "getOneVol",
+      this.myReservation.transport
+    );
     this.vol = vol;
-    console.log(vol);
+    // // console.log(vol);
   },
 });
 </script>
-<style></style>
+<style>
+.Button {
+  background-color: #e49439; /* Green */
+  border: none;
+  color: white;
+  padding: 6px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.Button2 {
+  background-color: #af9e4c; /* Green */
+}
+</style>

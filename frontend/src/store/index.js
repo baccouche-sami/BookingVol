@@ -4,11 +4,13 @@ import axios from "axios";
 export default createStore({
   state: {
     vols: [],
+    trains: [],
     bookings: [],
     currency: "EURO",
   },
   getters: {
-    getVols: (state) => state.vols,
+    getVols: (state) => state.trains,
+    getTrains: (state) => state.vols,
     getBookings: (state) => state.bookings,
     getCurrency: (state) => state.currency,
   },
@@ -44,6 +46,19 @@ export default createStore({
       return finalData;
       
       
+    },
+    async fetchTrain({ commit }) {
+      try {
+        const data = await axios.get(
+          "http://127.0.0.1:8000/booking/trains/"
+        );
+        commit("SET_TRAIN", data.data);
+
+        return data.data;
+      } catch (error) {
+        //alert(error)
+        console.log(error);
+      }
     },
     async fetchBookings({ commit }) {
       try {
@@ -111,6 +126,9 @@ export default createStore({
   mutations: {
     SET_VOLS(state, vols) {
       state.vols = vols;
+    },
+    SET_TRAIN(state, trains) {
+      state.trains = trains;
     },
     SET_BOOKINGS(state, bookings) {
       state.bookings = bookings;

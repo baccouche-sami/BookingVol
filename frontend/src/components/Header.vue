@@ -19,6 +19,8 @@
             
 
             <a href="/trouver-mon-vol" class="text-base font-medium text-gray-500 hover:text-gray-900">Trouver mon Vol</a>
+            <a href="/trouver-mon-train" class="text-base font-medium text-gray-500 hover:text-gray-900">Trouver mon Train</a>
+
             <a href="/Bookings" class="text-base font-medium text-gray-500 hover:text-gray-900">Gérer mes reservations</a>
 
             

@@ -285,6 +285,10 @@ name: "ButtonBook",
     IsButton:{
         type: Boolean,
         default: true,
+    },
+    contentType:{
+        type: Number,
+        default: 8
     }
   },
     data() {
@@ -297,7 +301,8 @@ name: "ButtonBook",
           nom: "",
           prenom: "",
           nb_place: 1,
-          vol: this.fly.id,
+          content_type:this.contentType,
+          transport: this.fly.id,
           code: this.fly.code,
           retour_inclut: false,
           date_depart: "",

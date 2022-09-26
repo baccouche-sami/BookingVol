@@ -2,7 +2,7 @@
   <div class="bg-white shadow sm:rounded-lg">
     <div class="px-4 py-5 sm:p-6">
       <h3 class="text-lg font-medium leading-6 text-gray-900">
-        Vol #BV{{ fly.id }}
+        Train #BV{{ fly.id }}
       </h3>
       <h5 class="text-md font-medium leading-6 text-gray-900">
         {{ priceVol }} 
@@ -14,7 +14,7 @@
           <p>Destination: {{ fly.arrive }}</p>
         </div>
         
-            <ButtonBook :contentType="8" :IsButton="true"  :fly="fly"/>
+            <ButtonBook :contentType="9" :IsButton="true"  :fly="fly"/>
       </div>
     </div>
 

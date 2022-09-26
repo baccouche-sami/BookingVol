@@ -1,6 +1,6 @@
 # A Propos:
 ```Booking App est une application developpée pour mettre en oeuvre les bonnes pratiques en Architecture Logiciel.
-Le but c'est d'apprendre à developper les solution informatique tout en tenant compte les evolutions future de de cette application
+Le but c'est d'apprendre à developper les solutions informatiques tout en tenant compte les evolutions future de de cette application
 
 ##  Membres: 
 1- Mame yacine Camara

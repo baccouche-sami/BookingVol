@@ -321,15 +321,25 @@ name: "ButtonBook",
         this.isOpen = true;
       },
       ajouterUneReservation() {
-        this.isOpen = false;
         const toast = useToast();
+        const checkNbPlaces = this.fly.places >= this.myReservation.nb_place ? true : false;
+        if (checkNbPlaces) {
+            this.isOpen = false;
         this.myReservation.currency = this.currency;
         let res = null;
         if (this.fly.code) {
-          res = this.$store.dispatch(
-            "ajoutReservationExternal",
-            this.myReservation
+            if (this.contentType === 9) {
+                res = this.$store.dispatch(
+                    "ajoutReservation",
+                    this.myReservation
+                );
+            } else {
+                res = this.$store.dispatch(
+                    "ajoutReservationExternal",
+                    this.myReservation
           );
+            }
+          
         } else {
           res = this.$store.dispatch("ajoutReservation", this.myReservation);
         }
@@ -340,6 +350,11 @@ name: "ButtonBook",
         } else {
           toast.error("Error" + res);
         }
+        } else {
+          toast.warning("Nombre de places disponibles est "+ this.fly.places);
+
+        }
+        
       },
     },
     computed: {

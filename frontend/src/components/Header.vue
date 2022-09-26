@@ -52,6 +52,9 @@
             <div class="space-y-6 py-6 px-5">
               <div class="grid grid-cols-2 gap-y-4 gap-x-8">
                 <a href="/trouver-mon-vol" class="text-base font-medium text-gray-900 hover:text-gray-700">Trouver mon Vol</a>
+                            <a href="/trouver-mon-train" class="text-base font-medium text-gray-500 hover:text-gray-900">Trouver mon Train</a>
+            <a href="/offres" class="text-base font-medium text-gray-500 hover:text-gray-900">Nos Offres</a>
+
                 <a href="/Bookings" class="text-base font-medium text-gray-900 hover:text-gray-700">Gérer mes reservations</a>
 
               </div>

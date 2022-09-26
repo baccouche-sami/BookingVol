@@ -12,6 +12,8 @@
         <div class="max-w-xl text-sm text-gray-500">
           <p>Départ : {{ fly.depart }}</p>
           <p>Destination: {{ fly.arrive }}</p>
+          <p v-if="fly.source">Source: {{ fly.source }}</p>
+
         </div>
         
             <ButtonBook :contentType="8" :IsButton="true"  :fly="fly"/>

@@ -25,7 +25,7 @@ export default createStore({
         console.log(error);
       }
       try {
-        dataExt = await axios.get("http://127.0.0.1:8000/booking/external",{timeout: 1000});
+        dataExt = await axios.get("http://127.0.0.1:8000/booking/external");
 
       } catch (error) {
         console.log(error);

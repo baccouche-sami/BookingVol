@@ -318,7 +318,7 @@
             </form>
           </div>
           <div class="pt-5" v-for="item in trains" :key="item.id">
-            <VolItem :fly="item" />
+            <TrainItem :fly="item" />
           </div>
         </div>
       </div>
@@ -344,7 +344,7 @@ import {
   Switch,
 } from "@headlessui/vue";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/vue/20/solid";
-import VolItem from "./VolItem.vue";
+import TrainItem from "./TrainItem.vue";
 import axios from "axios";
 import { mapGetters, mapState } from "vuex";
 
@@ -365,7 +365,7 @@ export default {
     DialogPanel,
     DialogTitle,
     Switch,
-    VolItem,
+    TrainItem,
   },
   data() {
     return {

@@ -20,7 +20,7 @@
   <button class="Button">
     <slot>Annuler</slot>
   </button>
-  <ButtonBook :IsButton="false" :fly="myReservation" />
+
 </template>
 
 <script>

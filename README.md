@@ -14,13 +14,14 @@ Le but c'est d'apprendre à developper les solution informatique tout en tenant 
 
 4- Aguibou Barry
 
-#Front-end:
+# Front-end:
 
 Le coté  frontend à été developpé en vue.js, pour la mise en forme des pages nous avons utliser la bibliothèque tailwind css et HeadLess ui
 
 Choix de cette technologie: cette technologie à été choisie car la majorité l'avait déja utilisé etb donc cela faciliterai le travail de groupe.
 
-##Communication avec le back-end: pour envoyer des requetes depuis la partie front-end de l'application, nous avons utilisé axios.
+## Communication avec le back-end: 
+pour envoyer des requetes depuis la partie front-end de l'application, nous avons utilisé axios.
 
 # Back-end:
 
